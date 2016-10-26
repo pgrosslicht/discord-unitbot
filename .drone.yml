@@ -1,0 +1,11 @@
+build:
+  image: frekele/gradle
+  commands:
+    - gradle build
+    - gradle assembleDist
+publish:
+  docker:
+    username: pdg
+    password: $$REGISTRY_PASS
+    repo: registry.grosslicht.com/unitbot
+    tag: latest
