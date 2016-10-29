@@ -69,7 +69,7 @@ docker {
     }
 }
 
-task tagAsLatest(type: DockerTagImage) {
+task tagAsLatest(type: com.bmuschko.gradle.docker.tasks.image.DockerTagImage) {
     repository = "registry.grosslicht.com/pdg/unitbot:${project.version}"
     tag = 'latest'
 }
