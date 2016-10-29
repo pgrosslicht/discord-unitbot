@@ -69,6 +69,11 @@ docker {
     }
 }
 
+task tagAsLatest(type: DockerTagImage) {
+    repository = "registry.grosslicht.com/pdg/unitbot:${project.version}"
+    tag = 'latest'
+}
+
 class Version {
     int major, minor, revision
 
