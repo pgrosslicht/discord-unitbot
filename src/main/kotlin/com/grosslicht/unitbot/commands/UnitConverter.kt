@@ -35,10 +35,12 @@ abstract class UnitConverter: ListenerAdapter() {
     override fun onMessageReceived(event: MessageReceivedEvent?) {
         if (event == null || event.message.mentionsEveryone() || event.message.author.isBot)
             return
-        val list = match(event.message.content)
-        if (list.isNotEmpty()) {
-            logger.debug { list.toString() }
-            event.message.channel.sendMessage(list.joinToString()).queue()
+        if (event.message.isMentioned(event.message.jda.selfInfo)) {
+            val list = match(event.message.content)
+            if (list.isNotEmpty()) {
+                logger.debug { list.toString() }
+                event.message.channel.sendMessage(list.joinToString()).queue()
+            }
         }
     }
 }
