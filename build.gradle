@@ -95,7 +95,7 @@ task dockerBuildImage(type: com.bmuschko.gradle.docker.tasks.image.DockerBuildIm
 
 task tagAsLatest(type: com.bmuschko.gradle.docker.tasks.image.DockerTagImage, dependsOn: 'dockerBuildImage') {
     targetImageId { dockerBuildImage.getImageId() }
-    repository = "registry.grosslicht.com/pdg/unitbot:${project.version}"
+    repository = "registry.grosslicht.com/pdg/unitbot"
     tag = 'latest'
 }
 
