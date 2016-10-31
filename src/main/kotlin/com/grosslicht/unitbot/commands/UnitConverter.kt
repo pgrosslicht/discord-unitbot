@@ -20,11 +20,9 @@ abstract class UnitConverter: ListenerAdapter() {
         val outputs: MutableList<Convertible> = ArrayList()
         var matcher: Matcher = regex.matcher(x)
         while (matcher.find()) {
-            logger.debug { "Start index: ${matcher.start()}, end index: ${matcher.end()}, ${matcher.group(2)}" }
             try {
                 val temp: Convertible = convert(matcher.group(1).toDouble(), matcher.group(2))
                 outputs.add(temp)
-                logger.debug { temp.toString() }
             } catch(e: NumberFormatException) {}
         }
         return outputs
@@ -36,9 +34,9 @@ abstract class UnitConverter: ListenerAdapter() {
         if (event == null || event.message.mentionsEveryone() || event.message.author.isBot)
             return
         if (event.message.isMentioned(event.message.jda.selfInfo)) {
+            logger.debug { "Handling message #${event.message.id}: ${event.message.content} from ${event.message.author}" }
             val list = match(event.message.content)
             if (list.isNotEmpty()) {
-                logger.debug { list.toString() }
                 event.message.channel.sendMessage(list.joinToString()).queue()
             }
         }
