@@ -1,44 +1,46 @@
 package com.grosslicht.unitbot.commands
 
-import com.grosslicht.unitbot.models.Convertible
+import com.github.kittinunf.fuel.core.FuelManager
+import com.github.kittinunf.fuel.httpPost
+import com.github.salomonbrys.kotson.get
+import com.github.salomonbrys.kotson.jsonObject
+import com.github.salomonbrys.kotson.string
+import com.google.gson.JsonParser
 import mu.KLogging
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
-import java.util.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 /**
  * Created by patrickgrosslicht on 14/10/16.
  */
 
-abstract class UnitConverter: ListenerAdapter() {
+class UnitConverter: ListenerAdapter() {
     companion object: KLogging()
-    abstract val regex: Pattern
+    init {
+        FuelManager.instance.basePath = System.getenv("MATHJS_HOST") ?: "http://localhost:8080"
+    }
+    val parse = JsonParser()
 
-    fun match(x: String): List<Convertible> {
-        val outputs: MutableList<Convertible> = ArrayList()
-        var matcher: Matcher = regex.matcher(x)
-        while (matcher.find()) {
-            try {
-                val temp: Convertible = convert(matcher.group(1).toDouble(), matcher.group(2))
-                outputs.add(temp)
-            } catch(e: NumberFormatException) {}
+    fun execute(msg: MessageReceivedEvent) {
+        val filtered = msg.message.content.replace("@UnitBot", "").trim()
+        "/eval".httpPost().body(jsonObject("expr" to filtered).toString()).header("Content-Type" to "application/json").responseString { request, response, result ->
+            val (data, error) = result
+            if (error == null) {
+                var response = parse.parse(data.toString())
+                msg.channel.sendMessage(response["result"].string).queue()
+            } else {
+                logger.error { error }
+            }
         }
-        return outputs
     }
 
-    abstract fun convert(amount: Double, type: String): Convertible
 
     override fun onMessageReceived(event: MessageReceivedEvent?) {
         if (event == null || event.message.mentionsEveryone() || event.message.author.isBot)
             return
         if (event.message.isMentioned(event.message.jda.selfInfo)) {
             logger.debug { "Handling message #${event.message.id}: ${event.message.content} from ${event.message.author}" }
-            val list = match(event.message.content)
-            if (list.isNotEmpty()) {
-                event.message.channel.sendMessage(list.joinToString()).queue()
-            }
+            execute(event)
         }
     }
 }

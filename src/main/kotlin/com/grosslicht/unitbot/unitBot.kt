@@ -1,8 +1,6 @@
 package com.grosslicht.unitbot
 
-import com.grosslicht.unitbot.commands.DistanceConverter
-import com.grosslicht.unitbot.commands.MassConverter
-import com.grosslicht.unitbot.commands.TemperatureConverter
+import com.grosslicht.unitbot.commands.UnitConverter
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDABuilder
 
@@ -12,10 +10,9 @@ import net.dv8tion.jda.core.JDABuilder
 
 fun main(args: Array<String>) {
     val builder = JDABuilder(AccountType.BOT)
-    val token = System.getenv("DISCORD_API_TOKEN")
+    //val token = System.getenv("DISCORD_API_TOKEN")
+    val token = "MjM2NTYxODE1MjcyODE2NjQx.Cvuixw.UDQgfgR4exhRfB06pOGe81gqWUg"
     builder.setToken(token)
-    builder.addListener(DistanceConverter())
-    builder.addListener(MassConverter())
-    builder.addListener(TemperatureConverter())
+    builder.addListener(UnitConverter())
     val jda = builder.buildBlocking()
 }
