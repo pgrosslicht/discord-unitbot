@@ -38,7 +38,7 @@ class UnitConverter: ListenerAdapter() {
     override fun onMessageReceived(event: MessageReceivedEvent?) {
         if (event == null || event.message.mentionsEveryone() || event.message.author.isBot)
             return
-        if (event.message.isMentioned(event.message.jda.selfInfo)) {
+        if (event.message.isMentioned(event.message.jda.selfUser)) {
             logger.debug { "Handling message #${event.message.id}: ${event.message.content} from ${event.message.author}" }
             execute(event)
         }
