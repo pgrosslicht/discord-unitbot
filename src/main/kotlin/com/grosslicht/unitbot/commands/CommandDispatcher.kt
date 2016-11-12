@@ -3,7 +3,6 @@ package com.grosslicht.unitbot.commands
 import mu.KLogging
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
-import java.io.FileInputStream
 import java.io.InputStream
 import java.lang.management.ManagementFactory
 import java.util.*
@@ -19,7 +18,7 @@ class CommandDispatcher: ListenerAdapter() {
     fun getVersion(): String {
         val prop = Properties()
         var input: InputStream?
-        input = FileInputStream("build.properties")
+        input = javaClass.getResourceAsStream("build.properties")
         prop.load(input)
         return "I am UnitBot v${prop.getProperty("version")}."
     }
