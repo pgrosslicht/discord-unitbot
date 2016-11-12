@@ -17,7 +17,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter
 class UnitConverter: ListenerAdapter() {
     companion object: KLogging()
     init {
-        FuelManager.instance.basePath = System.getenv("MATHJS_HOST") ?: "http://localhost:8080"
+        FuelManager.instance.basePath = System.getenv("MATHJS_HOST") ?: "http://${System.getenv("MATHJS_API_SERVICE_HOST")}:${System.getenv("MATHJS_API_SERVICE_PORT")}"
     }
     val parse = JsonParser()
 
