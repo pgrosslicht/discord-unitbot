@@ -8,13 +8,12 @@ import com.github.salomonbrys.kotson.string
 import com.google.gson.JsonParser
 import mu.KLogging
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
-import net.dv8tion.jda.core.hooks.ListenerAdapter
 
 /**
  * Created by patrickgrosslicht on 14/10/16.
  */
 
-class UnitConverter: ListenerAdapter() {
+class UnitConverter {
     companion object: KLogging()
     init {
         FuelManager.instance.basePath = System.getenv("MATHJS_HOST") ?: "http://${System.getenv("MATHJS_API_SERVICE_HOST")}:${System.getenv("MATHJS_API_SERVICE_PORT")}"
@@ -31,16 +30,6 @@ class UnitConverter: ListenerAdapter() {
             } else {
                 logger.error { error }
             }
-        }
-    }
-
-
-    override fun onMessageReceived(event: MessageReceivedEvent?) {
-        if (event == null || event.message.mentionsEveryone() || event.message.author.isBot)
-            return
-        if (event.message.isMentioned(event.message.jda.selfUser)) {
-            logger.debug { "Handling message #${event.message.id}: ${event.message.content} from ${event.message.author}" }
-            execute(event)
         }
     }
 }

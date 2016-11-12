@@ -12,8 +12,9 @@ import java.util.concurrent.TimeUnit
 /**
  * Created by patrickgrosslicht on 12/11/16.
  */
-class InfoCommand: ListenerAdapter() {
+class CommandDispatcher: ListenerAdapter() {
     companion object: KLogging()
+    val unitConverter: UnitConverter = UnitConverter()
 
     fun getVersion(): String {
         val prop = Properties()
@@ -35,6 +36,8 @@ class InfoCommand: ListenerAdapter() {
                         TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1))}.").queue()
             } else if (event.message.strippedContent.contains("version")) {
                 event.message.channel.sendMessage(getVersion()).queue()
+            } else {
+                unitConverter.execute(event)
             }
         }
     }

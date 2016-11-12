@@ -1,7 +1,6 @@
 package com.grosslicht.unitbot
 
-import com.grosslicht.unitbot.commands.InfoCommand
-import com.grosslicht.unitbot.commands.UnitConverter
+import com.grosslicht.unitbot.commands.CommandDispatcher
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDABuilder
 
@@ -13,7 +12,6 @@ fun main(args: Array<String>) {
     val builder = JDABuilder(AccountType.BOT)
     val token = System.getenv("DISCORD_API_TOKEN")
     builder.setToken(token)
-    builder.addListener(UnitConverter())
-    builder.addListener(InfoCommand())
+    builder.addListener(CommandDispatcher())
     val jda = builder.buildBlocking()
 }
