@@ -1,6 +1,7 @@
 package com.grosslicht.unitbot.commands
 
 import mu.KLogging
+import net.dv8tion.jda.core.OnlineStatus
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 import java.lang.management.ManagementFactory
@@ -13,6 +14,7 @@ import java.util.concurrent.TimeUnit
 class CommandDispatcher: ListenerAdapter() {
     companion object: KLogging()
     val unitConverter: UnitConverter = UnitConverter()
+    val OWNER_ID = "135726717363945472"
 
     fun getVersion(): String {
         val prop = Properties()
@@ -33,6 +35,14 @@ class CommandDispatcher: ListenerAdapter() {
                         TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1))}.").queue()
             } else if (event.message.strippedContent.contains("version")) {
                 event.message.channel.sendMessage(getVersion()).queue()
+            } else if (event.message.strippedContent.contains("status") && event.author.id == OWNER_ID) {
+                when {
+                    event.message.content.contains("invisible") -> event.jda.presence.status = OnlineStatus.INVISIBLE
+                    event.message.content.contains("offline") -> event.jda.presence.status = OnlineStatus.INVISIBLE
+                    event.message.content.contains("dnd") -> event.jda.presence.status = OnlineStatus.DO_NOT_DISTURB
+                    event.message.content.contains("afk") -> event.jda.presence.status = OnlineStatus.IDLE
+                    else -> event.jda.presence.status = OnlineStatus.ONLINE
+                }
             } else {
                 unitConverter.execute(event)
             }
