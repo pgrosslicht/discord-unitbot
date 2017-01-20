@@ -22,14 +22,17 @@ class UnitConverter {
 
     fun execute(msg: MessageReceivedEvent) {
         val filtered = msg.message.content.replace("@UnitBot", "").trim()
-        "/eval".httpPost().body(jsonObject("expr" to filtered).toString()).header("Content-Type" to "application/json").responseString { request, response, result ->
-            val (data, error) = result
-            if (error == null) {
-                var response = parse.parse(data.toString())
-                msg.channel.sendMessage(response["result"].string).queue()
-            } else {
-                logger.error { error }
+        msg.channel.sendMessage("Processing…").queue({ msg ->
+            "/eval".httpPost().body(jsonObject("expr" to filtered).toString()).header("Content-Type" to "application/json").responseString { request, response, result ->
+                val (data, error) = result
+                if (error == null) {
+                    var response = parse.parse(data.toString())
+                    msg.editMessage(response["result"].string).queue()
+                } else {
+                    msg.editMessage("Invalid expression.").queue()
+                    logger.error { error }
+                }
             }
-        }
+        })
     }
 }
