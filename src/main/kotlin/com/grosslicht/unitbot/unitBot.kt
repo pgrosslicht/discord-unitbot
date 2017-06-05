@@ -12,6 +12,6 @@ fun main(args: Array<String>) {
     val builder = JDABuilder(AccountType.BOT)
     val token = System.getenv("DISCORD_API_TOKEN")
     builder.setToken(token)
-    builder.addListener(CommandDispatcher())
+    builder.addEventListener(CommandDispatcher())
     val jda = builder.buildBlocking()
 }
