@@ -1,30 +1,26 @@
 sudo: required
-
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
 services:
-  - docker
+- docker
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 env:
   global:
-    - secure: ba0cpb3nki4AC3Wiq+sjjo+u1NihuXjD/BvMxSPitQRRW5iRs3LtoGQTb/jgFi4xsom/MDIrtd8WRyZMZVVWxH1Wa2pFpz4l1NenG8OLWk6x0pkkzLNEOzj228DZ1QzCfsR9P6yqy+E+c/fHIFwvIom/5482pNzlG08d4aJYEBa4zL9SgC7qg7WL5jRA8X75QsrKScSeaRHfyyMt+5Lj+efWJWrNym3k1IfIDeySFieL+KlCqJRO1lZVP/3a23gWq9O7k+y8rDgeKwaUj7fjNbv5cdYIbz8SAd3jyXf+5CnG5eHHAYHoi9QfnuI16Hyc1pcrM6WpWfRY3oog0f42mcw+nV8L7Kiw8ofn18uXutjQNmmLffo1anzrLKLr++Ujh1RYKN4GaJsZvBV9U76Bu5ykcAyJhVpICbSEWuT139sSjupe0JmaKgr7RMYY/hKsybZFSugdSnMyTXKge4jP9qAxfjj6xb5xeHWAraH1AnJY6oXshpsFO0HjKyWuHCGlCy+U+ykvt8qs3U3TDeJRwQjWY5N9eixRVkC+1jDxQ9KiK4xsy1u/LrmFwKwnrCqGZIGLnbIeAWGlghjTBonDwUsR7LJW0x0S/5asXqKxXyw5TOyxlmpIGIViGDCSodqCgVaXZVOSOQvgppb3YOuMIPl9q2kC5VXuPNt8Hlzhs08=
-    - CONTAINER_NAME="pdgwien/discord-unitbot"
+  - CONTAINER_NAME="pdgwien/discord-unitbot"
+  - secure: bXvwtpU1oEmpMb7cx+ZsrnrvVjxzv6cb7XbPoNSL91IouWOafw4B/qKmLgUA+NWuRpDV7yXLY3eW/L9jyiJXCj2pCKnKnRcDC8kiwOhrdh2MpCQkEP+LMXFkltwHucWfbShrL8alLiIhm69SOQ5gjG9/3wpTUSw2gDUMQOmV5KuT95cT/Zclbnq1qHjlhznVMIJSLwsTIkFb2clqATAeObX+aXZm+OUnT+HChNC+g9ZcyGaI4RpZzOPrr025QrfoMWDCs98sw24Mk6os9GBqsgAHoMHbBACwW0kkFUYm9vRhAqKPjeSvSo/Dn1nRfnjTWOSSFwDxdlL6KbtUNrZnlT8ybFvaiuZTa1vTUyFBwL1vbXAvEfWZwOSo/junIn2aU8hBNDlWg4/5A8ABmOpnR7Oolg8qFJOofy1ZOHRW3z/q6gtMl6q8xUlB8y08WVBxa7fXjkNqN8GQps5j6ckcS80vqwmUk6Nc9n88fAL/X7Cza5JK0zbFhzKFiDAQkIh1YUibaJgd0Z9kFYrpKaEqe2vS+AMfOWM91asZRDaaI33MKqqVRv/fpE86vtDG53UMnWOI7CaIH3i1BlsmcxzCEK82CjePjpxAZCGUNQSp12unwixmnNqzqaPx+fpyYoruFgMxUW+vH1UXgTqtsL3siLWgHgXr7M+ZnZprbbpNvVo=
 
 install: true
-
 before_script:
-  - docker login -u="pdgwien" -p="$DOCKER_PASSWORD"
-
+- docker login -u="pdgwien" -p="$DOCKER_PASSWORD"
 script:
-  - gradle build assembleDist dockerBuildImage tagAsLatest
-  - docker push $CONTAINER_NAME
-
+- gradle build assembleDist dockerBuildImage tagAsLatest
+- docker push $CONTAINER_NAME
 notifications:
   webhooks: http://travis-discord.fm-96.at/
