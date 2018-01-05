@@ -28,19 +28,19 @@ class CommandDispatcher: ListenerAdapter() {
             return
         if (event.message.isMentioned(event.message.jda.selfUser)) {
             logger.debug { "Handling message #${event.message.id}: ${event.message.content} from ${event.message.author}" }
-            if (event.message.strippedContent.contains("uptime")) {
+            if (event.message.contentStripped.contains("uptime")) {
                 val millis = ManagementFactory.getRuntimeMXBean().uptime
                 event.message.channel.sendMessage("I have been up for ${String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
                         TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
                         TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1))}.").queue()
-            } else if (event.message.strippedContent.contains("version")) {
+            } else if (event.message.contentStripped.contains("version")) {
                 event.message.channel.sendMessage(getVersion()).queue()
-            } else if (event.message.strippedContent.contains("status") && event.author.id == OWNER_ID) {
+            } else if (event.message.contentStripped.contains("status") && event.author.id == OWNER_ID) {
                 when {
-                    event.message.content.contains("invisible") -> event.jda.presence.status = OnlineStatus.INVISIBLE
-                    event.message.content.contains("offline") -> event.jda.presence.status = OnlineStatus.INVISIBLE
-                    event.message.content.contains("dnd") -> event.jda.presence.status = OnlineStatus.DO_NOT_DISTURB
-                    event.message.content.contains("afk") -> event.jda.presence.status = OnlineStatus.IDLE
+                    event.message.contentDisplay.contains("invisible") -> event.jda.presence.status = OnlineStatus.INVISIBLE
+                    event.message.contentDisplay.contains("offline") -> event.jda.presence.status = OnlineStatus.INVISIBLE
+                    event.message.contentDisplay.contains("dnd") -> event.jda.presence.status = OnlineStatus.DO_NOT_DISTURB
+                    event.message.contentDisplay.contains("afk") -> event.jda.presence.status = OnlineStatus.IDLE
                     else -> event.jda.presence.status = OnlineStatus.ONLINE
                 }
             } else {

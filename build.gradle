@@ -33,13 +33,13 @@ dependencies {
     // The production code uses the SLF4J logging API at compile time
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'org.slf4j:slf4j-api:1.7.25'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8.2'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.2'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.8.2'
-    compile 'io.github.microutils:kotlin-logging:1.4.4'
-    compile 'com.github.kittinunf.fuel:fuel:1.7.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4j_version
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: log4j_version
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: log4j_version
+    compile 'io.github.microutils:kotlin-logging:1.4.9'
+    compile 'com.github.kittinunf.fuel:fuel:1.12.0'
     compile 'com.github.salomonbrys.kotson:kotson:2.5.0'
-    compile 'net.dv8tion:JDA:3.1.1_212'
+    compile 'net.dv8tion:JDA:3.4.0_323'
     
     // Declare the dependency for your favourite test framework you want to use in your tests.
     // TestNG is also supported by the Gradle Test task. Just change the
@@ -48,7 +48,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 buildscript {
-    ext.kotlin_version = '1.1.2'
+    ext.kotlin_version = '1.2.10'
+    ext.log4j_version = '2.10.0'
     repositories {
         mavenCentral()
         jcenter()
@@ -59,7 +60,7 @@ buildscript {
     }
 }
 
-def versionObj = new Version(major: 2, minor: 2, revision: 0)
+def versionObj = new Version(major: 2, minor: 3, revision: 0)
 project.version = "${versionObj}"
 
 processResources {

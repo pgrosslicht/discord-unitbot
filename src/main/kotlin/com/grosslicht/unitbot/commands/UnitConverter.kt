@@ -21,7 +21,7 @@ class UnitConverter {
     val parse = JsonParser()
 
     fun execute(msg: MessageReceivedEvent) {
-        val filtered = msg.message.content.replace("@UnitBot", "").trim()
+        val filtered = msg.message.contentDisplay.replace("@UnitBot", "").trim()
         msg.channel.sendMessage("Processing…").queue({ msg ->
             "/eval".httpPost().body(jsonObject("expr" to filtered).toString()).header("Content-Type" to "application/json").responseString { request, response, result ->
                 val (data, error) = result
