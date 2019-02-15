@@ -20,7 +20,7 @@ class UnitConverter {
     fun execute(msg: MessageReceivedEvent) {
         val filtered = msg.message.contentDisplay.replace("@UnitBot", "").trim()
         msg.channel.sendMessage("Processing…").queue { msg ->
-            "/eval".httpPost().jsonBody("expr" to filtered)
+            "/eval".httpPost().jsonBody(mapOf("expr" to filtered))
                 .responseObject<Result> { _, _, result ->
                     result.fold({ success ->
                         msg.editMessage(success.result).queue()
