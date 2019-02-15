@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.3.11"
-    kotlin("kapt") version "1.3.20"
     application
     id("com.google.cloud.tools.jib") version "1.0.0"
     id("com.diffplug.gradle.spotless") version "3.18.0"
@@ -18,7 +17,6 @@ repositories {
     jcenter()
 }
 
-val requeryVersion = "1.5.1"
 val log4jVersion = "2.11.1"
 
 dependencies {
