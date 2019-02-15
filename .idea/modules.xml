@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/UnitBot.iml" filepath="$PROJECT_DIR$/.idea/modules/UnitBot.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/UnitBot_main.iml" filepath="$PROJECT_DIR$/.idea/modules/UnitBot_main.iml" group="UnitBot" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/UnitBot_test.iml" filepath="$PROJECT_DIR$/.idea/modules/UnitBot_test.iml" group="UnitBot" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.grosslicht.unitbot.iml" filepath="$PROJECT_DIR$/.idea/modules/com.grosslicht.unitbot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.grosslicht.unitbot.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.grosslicht.unitbot.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.grosslicht.unitbot.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.grosslicht.unitbot.test.iml" />
     </modules>
   </component>
 </project>

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
-      <module name="UnitBot_main" target="1.8" />
-      <module name="UnitBot_test" target="1.8" />
+      <module name="com.grosslicht.unitbot.main" target="1.8" />
+      <module name="com.grosslicht.unitbot.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
